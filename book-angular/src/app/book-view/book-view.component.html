@@ -1,0 +1,22 @@
+<div class="container mt-5">
+  <div class="form-container">
+  <h1 class="text-center mb-4">Szczegóły filmu</h1>
+
+  <div class="card shadow-sm" *ngIf="book">
+    <div class="card-body">
+      <h3 class="card-title mb-3"><strong>Tytuł:</strong> {{ book.title }}</h3>
+      <p class="card-text"><strong>Autor:</strong> {{ book.author }}</p>
+      <p class="card-text"><strong>Opis:</strong> {{ book.description }}</p>
+      <p class="card-text" *ngIf="book?.category"><strong>Kategoria:</strong> {{ book.category.name}}</p>
+      <p class="card-text"><strong>Aktorzy:</strong>
+        <span *ngFor="let actor of book.actors; let last = last">
+          {{ actor.name }} {{ actor.surname }}<span *ngIf="!last">, </span>
+        </span>
+      </p>
+    </div>
+  </div>
+  <div class="return-btn">
+    <a routerLink="/books" class="btn btn-primary mt-4">Powrót do listy</a>
+  </div>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="form-container">
+    <div class="card">
+        <h1>
+            Edycja filmu
+        </h1>
+        <div class="edit-container">
+            <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+                <div class="elem-edit">
+                    <label for="title" class="form-label">Tytuł</label>
+                    <input id="title" type="text" formControlName="title" class="form-control" />
+                </div>
+
+                <div class="elem-edit">
+                    <label for="author" class="form-label">Reżyser</label>
+                    <input id="author" type="text" formControlName="author" class="form-control" />
+                </div>
+
+                <div class="elem-edit">
+                    <label for="description" class="form-label">Opis</label>
+                    <textarea id="description" formControlName="description" class="form-control"></textarea>
+                </div>
+
+              <div class="elem-edit">
+                <label for="actors" class="form-label">Aktorzy</label>
+                <select multiple class="form-select" formControlName="actors">
+                  <option *ngFor="let actor of actors" [value]="actor">{{ actor.name }} {{ actor.surname }}</option>
+                </select>
+              </div>
+
+
+              <div class="text-end">
+                    <button type="submit" class="btn">Zapisz zmiany</button>
+                    <a routerLink="/books" class="btn">Anuluj</a>
+              </div>
+            </form>
+        </div>
+    </div>
+
+    <a routerLink="/books" class="btn btn-outline-secondary back-button">Powrót do listy</a>
+</div>

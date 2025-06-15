@@ -1,0 +1,73 @@
+<div class="container my-5">
+  <div class="form-container">
+    <h2>Dodawanie nowego filmu</h2>
+
+    <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+      <div class="form-group mb-3">
+        <label for="title">Tytuł</label>
+        <input type="text" id="title" class="form-control" formControlName="title">
+        <div *ngIf="submitted && f['title'].errors" class="text-red-500 text-sm mt-1">
+          <div *ngIf="f['title'].errors['required']">Tytuł jest wymagany</div>
+          <div *ngIf="f['title'].errors['minlength']">Tytuł musi mieć co najmniej 2 znaki</div>
+        </div>
+      </div>
+      <div class="form-group mb-3">
+        <label for="author">Reżyser</label>
+        <input type="text" id="author" class="form-control" formControlName="author">
+      </div>
+      <div class="form-group mb-3">
+        <label for="description">Opis</label>
+        <textarea id="description" class="form-control" formControlName="description"></textarea>
+      </div>
+      <div class="form-group mb-3">
+        <label for="category">Kategoria</label>
+        <select id="category" class="form-control" formControlName="category">
+          <option value="">Wybierz kategorię</option>
+          <option *ngFor="let category of categories" [ngValue]="category.id">{{ category.name }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+  <label for="actors">Wybierz aktorów:</label>
+  <select
+    class="form-control"
+    multiple
+    [(ngModel)]="selectedActors"
+    [ngModelOptions]="{ standalone: true }"
+  >
+    <option *ngFor="let actor of actors" [ngValue]="actor">
+      {{ actor.name }} {{ actor.surname }}
+    </option>
+  </select>
+</div>
+
+<!-- Wyświetlanie wybranych aktorów z opcją usunięcia -->
+<div class="selected-actors mt-2">
+  <span *ngFor="let actor of selectedActors" class="badge bg-primary me-2">
+    {{ actor.name }} {{ actor.surname }}
+    <button type="button" class="btn-close btn-close-white btn-sm ms-2" aria-label="Usuń"
+      (click)="removeActor(actor)"></button>
+  </span>
+</div>
+
+
+      <div class="form-group mb-3">
+  <label for="category">Kategoria</label>
+  <select id="category" class="form-control" formControlName="category">
+    <option value="">Wybierz kategorię</option>
+    <option *ngFor="let category of categories" [value]="category.id">
+      {{ category.name }}
+    </option>
+  </select>
+</div>
+
+
+
+
+      <button type="submit" class="btn btn-primary mt-3" >Dodaj film</button>
+    </form>
+    <div class="mt-3">
+      <a routerLink="/books" class="btn btn-secondary">Powrót do listy filmów</a>
+    </div>
+  </div>
+</div>

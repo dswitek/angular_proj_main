@@ -1,0 +1,99 @@
+<div class="form-container film-list-container">
+
+<h1>Lista Filmów</h1>
+<div class="table-responsive">
+<table id="books-table" class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Tytuł</th>
+      <th>Opis</th>
+      <th>Kategoria</th>
+      <th>Aktorzy</th>
+      <th>Reżyser</th>
+      <th>Akcje</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let book of books">
+      <td>{{ book.id }}</td>
+      <td>{{ book.title }}</td>
+      <td>{{book.description}}</td>
+      <td>{{book.category.name}}</td>
+      <td>{{ book.author }}</td>
+        <span *ngFor="let actor of book.actors; let last = last">
+    {{actor.name}} {{actor.surname}}{{!last ? ', ' : ''}}
+  </span>
+      <td>{{ book.author }}</td>
+      <td>
+        <div class="action-buttons">
+          <a [routerLink]="['/book/show', book.id]" class="btn">Zobacz</a>
+          <a [routerLink]="['/books/edit', book.id]" class="btn">Edytuj</a>
+          <button (click)="deleteBook(book.id)" class="btn del-btn">Usuń</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+  <div class="buttons-container-list">
+    <a routerLink="/book/add" class="btn">Dodaj nowy film</a>
+
+    <button type="button" class="btn add-actor-btn" (click)="showAddActor = true">
+      Dodaj nowego aktora
+    </button>
+    <button type="button" class="btn add-actor-btn" (click)="showAddCategory = true">
+    Dodaj nową kategorię
+  </button>
+</div>
+
+
+
+<div *ngIf="showAddActor" class="add-actor-form">
+  <h5>Dodaj aktora</h5>
+
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control mb-2"
+      placeholder="Imię"
+      [(ngModel)]="newActor.name"
+      [ngModelOptions]="{standalone: true}"
+      name="newActorName"
+      required
+    >
+    <input
+      type="text"
+      class="form-control mb-2"
+      placeholder="Nazwisko"
+      [(ngModel)]="newActor.surname"
+      [ngModelOptions]="{standalone: true}"
+      name="newActorSurname"
+      required
+    >
+    <div class="d-flex gap-2 mt-2">
+    <button type="button" class="btn btn-success" (click)="addNewActor()">Dodaj aktora</button>
+    <button type="button" class="btn btn-link text-danger" (click)="showAddActor = false">Anuluj</button>
+    </div>
+  </div>
+</div>
+<div *ngIf="showAddCategory" class="add-actor-form">
+  <h5>Dodaj kategorię</h5>
+
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control mb-2"
+      placeholder="Nazwa kategorii"
+      [(ngModel)]="newCategoryName"
+      [ngModelOptions]="{standalone: true}"
+      required
+    >
+    <div class="d-flex gap-2 mt-2">
+      <button type="button" class="btn btn-success" (click)="addNewCategory()">Dodaj kategorię</button>
+      <button type="button" class="btn btn-link text-danger" (click)="showAddCategory = false">Anuluj</button>
+    </div>
+  </div>
+</div>
+
+</div>
